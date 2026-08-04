@@ -26,9 +26,9 @@ public class MaceHitListener implements Listener {
             return; // Damage is too low (will be configurable in the future)
 
         String formattedDamage = String.format("%.2f", damage);
-        Component message = Component.text("Mace Damage ").color(NamedTextColor.BLUE).decorate(TextDecoration.BOLD)
+        Component message = Component.text("Mᴀᴄᴇ Dᴀᴍᴀɢᴇ ").color(NamedTextColor.BLUE)
                         .append( Component.text(">> ").color(NamedTextColor.GRAY) )
-                                .append( Component.text(formattedDamage).color(Helpers.getDamageColor(damage)) );
+                                .append( Component.text(formattedDamage).color(Helpers.getDamageColor(damage)).decorate(TextDecoration.BOLD) );
 
         player.sendActionBar(message);
 
