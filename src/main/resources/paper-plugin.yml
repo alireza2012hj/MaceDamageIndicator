@@ -1,0 +1,7 @@
+name: MaceDamageIndicator
+version: '${version}'
+
+main: org.alirezahj.maceDamageIndicator.MaceDamageIndicator
+loader: org.alirezahj.maceDamageIndicator.MaceDamageIndicatorLoader
+api-version: '1.21.11'
+load: POSTWORLD
