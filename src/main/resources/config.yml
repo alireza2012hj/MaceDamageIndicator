@@ -12,3 +12,26 @@ min-mace-damage: 6.0
 # How many decimals to show.
 # Like a value of 2 will show as: x.xx
 indicator-decimals: 2
+
+
+# The message shown when mace damage is dealt
+# {damage} is what gets replaced with the actual damage
+indicator-message: "ᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ >> {damage}"
+
+# Color of the surrounding message text (not the damage number itself)
+message-color: BLUE
+
+# Whether the surrounding message text is bold
+message-bold: true
+
+# Damage tiers, checked in order. If damage is under "max", that tier's color is used
+damage-tiers:
+  - max: 15
+    color: GREEN
+  - max: 20
+    color: YELLOW
+  - max: 30
+    color: RED
+
+# Used when damage is more than 30
+default-color: DARK_RED
