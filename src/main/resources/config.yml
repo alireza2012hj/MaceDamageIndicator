@@ -18,12 +18,6 @@ indicator-decimals: 2
 # {damage} is what gets replaced with the actual damage
 indicator-message: "ᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ >> {damage}"
 
-# Color of the surrounding message text (not the damage number itself)
-message-color: BLUE
-
-# Whether the surrounding message text is bold
-message-bold: true
-
 # Damage tiers, checked in order. If damage is under "max", that tier's color is used
 damage-tiers:
   - max: 15

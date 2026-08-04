@@ -3,6 +3,7 @@ package org.alirezahj.maceDamageIndicator;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ public class Helpers {
 
         tiers.sort(Comparator.comparingDouble(t -> t.max)); // ensure ascending order regardless of yaml order
 
-        String defaultColorName = plugin.getConfig().getString("default-color", "WHITE");
+        String defaultColorName = plugin.getConfig().getString("default-color", "DARK_RED");
         NamedTextColor parsedDefault = NamedTextColor.NAMES.value(defaultColorName.toLowerCase());
-        defaultColor  = (parsedDefault != null) ? parsedDefault : NamedTextColor.WHITE;
+        defaultColor  = (parsedDefault != null) ? parsedDefault : NamedTextColor.DARK_AQUA;
     }
 
 
@@ -56,34 +57,27 @@ public class Helpers {
 
     public static Component buildIndicatorMessage(double damage, MaceDamageIndicator plugin) {
         String template = plugin.getConfig().getString("indicator-message", "Mace Damage >> {damage}!");
-        String colorName = plugin.getConfig().getString("message-color", "BLUE");
-        boolean bold = plugin.getConfig().getBoolean("message-bold", true);
+        int decimals = plugin.getConfig().getInt("indicator-decimals", 2);
 
-        NamedTextColor messageColor = NamedTextColor.NAMES.value(colorName.toLowerCase());
-        if (messageColor == null) {
-            messageColor = NamedTextColor.BLUE;
-        }
-
-        String[] parts = template.split("\\{damage}", 2); // limit=2: only split on the first occurrence
+        String[] parts = template.split("\\{damage\\}", 2);
         String prefix = parts[0];
         String suffix = (parts.length > 1) ? parts[1] : "";
 
-        String formattedDamage = String.format("%.2f", damage);
-        NamedTextColor damageColor = getDamageColor(damage); // your existing tier lookup
+        String formattedDamage = formatDamage(damage, decimals);
+        NamedTextColor damageColor = getDamageColor(damage);
 
-        return Component.text(prefix)
-                .color(messageColor)
-                .decoration(TextDecoration.BOLD, bold)
+        LegacyComponentSerializer legacy = LegacyComponentSerializer.legacySection();
+
+        Component prefixComponent = legacy.deserialize(prefix);
+        Component suffixComponent = legacy.deserialize(suffix);
+
+        return prefixComponent
                 .append(
                         Component.text(formattedDamage)
                                 .color(damageColor)
                                 .decoration(TextDecoration.BOLD, false)
                 )
-                .append(
-                        Component.text(suffix)
-                                .color(messageColor)
-                                .decoration(TextDecoration.BOLD, bold)
-                );
+                .append(suffixComponent);
     }
 
 }

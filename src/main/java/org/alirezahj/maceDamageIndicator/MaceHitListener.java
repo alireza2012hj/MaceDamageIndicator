@@ -42,10 +42,7 @@ public class MaceHitListener implements Listener {
         int decimals = plugin.getConfig().getInt("indicator-decimals", 2);
         boolean showViaActionbar = plugin.getConfig().getString("display-mode", "actionbar").equalsIgnoreCase("actionbar");
 
-        String formattedDamage = Helpers.formatDamage(damage, decimals);
-        Component message = Component.text("ᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ ").color(NamedTextColor.BLUE)
-                        .append( Component.text(">> ").color(NamedTextColor.GRAY) )
-                                .append( Component.text(formattedDamage).color(Helpers.getDamageColor(damage)).decorate(TextDecoration.BOLD) );
+        Component message = Helpers.buildIndicatorMessage(damage, plugin);
 
 
         if (showViaActionbar)
