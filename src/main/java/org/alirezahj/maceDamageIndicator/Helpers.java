@@ -2,6 +2,8 @@ package org.alirezahj.maceDamageIndicator;
 
 import net.kyori.adventure.text.format.NamedTextColor;
 
+import java.text.DecimalFormat;
+
 public class Helpers {
 
     public static NamedTextColor getDamageColor(double damage) {
@@ -19,6 +21,12 @@ public class Helpers {
 
         else
             return NamedTextColor.DARK_RED;
+    }
+
+
+    public static String formatDamage(double damage, int decimals) {
+        DecimalFormat df = new DecimalFormat("#." + "#".repeat(Math.max(0, decimals)));
+        return df.format(damage);
     }
 
 }

@@ -1,0 +1,14 @@
+# Whether the mod is enabled or not
+enabled: true
+
+
+# Whether to show the mace damage in the actionbar or as a server message
+# Possible values: actionbar, text
+display-mode: actionbar
+
+# Minimum damage required for the indicator to actually show up
+min-mace-damage: 6.0
+
+# How many decimals to show.
+# Like a value of 2 will show as: x.xx
+indicator-decimals: 2

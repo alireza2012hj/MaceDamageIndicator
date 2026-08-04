@@ -11,9 +11,21 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class MaceHitListener implements Listener {
+    private final MaceDamageIndicator plugin;
+
+    public MaceHitListener(MaceDamageIndicator plugin) {
+        this.plugin = plugin;
+    }
+
+
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
+        if (!plugin.getConfig().getBoolean("enabled", true)) {
+            return; // pretty self-explanatory
+        }
+
+
         if (!(event.getDamager() instanceof Player player))
             return; // Damager ain't a player so no one to show the message to
 
@@ -22,15 +34,25 @@ public class MaceHitListener implements Listener {
             return; // This is a mace damage indicator, only for the MACE
 
         double damage = event.getFinalDamage();
-        if (damage < 6)
+        double minDamage = plugin.getConfig().getDouble("min-mace-damage", 6);
+
+        if (damage < minDamage)
             return; // Damage is too low (will be configurable in the future)
 
-        String formattedDamage = String.format("%.2f", damage);
-        Component message = Component.text("Mᴀᴄᴇ Dᴀᴍᴀɢᴇ ").color(NamedTextColor.BLUE)
+        int decimals = plugin.getConfig().getInt("indicator-decimals", 2);
+        boolean showViaActionbar = plugin.getConfig().getString("display-mode", "actionbar").equalsIgnoreCase("actionbar");
+
+        String formattedDamage = Helpers.formatDamage(damage, decimals);
+        Component message = Component.text("ᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ ").color(NamedTextColor.BLUE)
                         .append( Component.text(">> ").color(NamedTextColor.GRAY) )
                                 .append( Component.text(formattedDamage).color(Helpers.getDamageColor(damage)).decorate(TextDecoration.BOLD) );
 
-        player.sendActionBar(message);
+
+        if (showViaActionbar)
+            player.sendActionBar(message);
+
+        else
+            player.sendMessage(message);
 
         // Doesn't really matter if it's a smash attack or not, since
         // breach swapping is a thing

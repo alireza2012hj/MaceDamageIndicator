@@ -6,8 +6,10 @@ public final class MaceDamageIndicator extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new MaceHitListener(), this);
+        getServer().getPluginManager().registerEvents(new MaceHitListener(this), this);
+        saveDefaultConfig();
 
+        System.out.println("MaceDamageIndicator Enabeld!");
     }
 
     @Override
