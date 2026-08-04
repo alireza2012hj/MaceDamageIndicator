@@ -2,6 +2,7 @@ package org.alirezahj.maceDamageIndicator;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,8 +25,10 @@ public class MaceHitListener implements Listener {
         if (damage < 6)
             return; // Damage is too low (will be configurable in the future)
 
-        Component message = Component.text("Mace Damage > " + damage)
-                .color(NamedTextColor.BLUE);
+        String formattedDamage = String.format("%.2f", damage);
+        Component message = Component.text("Mace Damage ").color(NamedTextColor.BLUE).decorate(TextDecoration.BOLD)
+                        .append( Component.text(">> ").color(NamedTextColor.GRAY) )
+                                .append( Component.text(formattedDamage).color(Helpers.getDamageColor(damage)) );
 
         player.sendActionBar(message);
 
