@@ -39,7 +39,6 @@ public class MaceHitListener implements Listener {
         if (damage < minDamage)
             return; // Damage is too low (will be configurable in the future)
 
-        int decimals = plugin.getConfig().getInt("indicator-decimals", 2);
         boolean showViaActionbar = plugin.getConfig().getString("display-mode", "actionbar").equalsIgnoreCase("actionbar");
 
         Component message = Helpers.buildIndicatorMessage(damage, plugin);

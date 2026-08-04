@@ -8,14 +8,15 @@ public final class MaceDamageIndicator extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new MaceHitListener(this), this);
         saveDefaultConfig();
+        CommandManager.registerCommands(this);
 
         Helpers.loadDamageTiers(this); // load damage tiers from the config
 
-        System.out.println("MaceDamageIndicator Enabled!");
+        this.getLogger().info("MaceDamageIndicator Enabled!");
     }
 
     @Override
     public void onDisable() {
-        System.out.println("MaceDamageIndicator Disabled!");
+        this.getLogger().info("MaceDamageIndicator Disabled!");
     }
 }

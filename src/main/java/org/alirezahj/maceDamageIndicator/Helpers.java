@@ -5,11 +5,16 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import static org.bukkit.Bukkit.getLogger;
 
 public class Helpers {
     private static List<DamageTier> tiers = new ArrayList<>();
@@ -78,6 +83,30 @@ public class Helpers {
                                 .decoration(TextDecoration.BOLD, false)
                 )
                 .append(suffixComponent);
+    }
+
+
+
+
+    public static void setEnabledPersisted(boolean enabled, MaceDamageIndicator plugin) {
+        try {
+            File configFile = new File(plugin.getDataFolder(), "config.yml");
+            List<String> lines = Files.readAllLines(configFile.toPath());
+
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).matches("^enabled:\\s*(true|false).*")) {
+                    lines.set(i, "enabled: " + enabled);
+                    break;
+                }
+            }
+
+            Files.write(configFile.toPath(), lines);
+            plugin.getConfig().set("enabled", enabled); // keep in-memory config in sync too
+
+            plugin.getLogger().info("MaceDamageIndicator " + (enabled? "Enabled!" : "Disabled!"));
+        } catch (IOException e) {
+            plugin.getLogger().warning("Failed to persist enabled state: " + e.getMessage());
+        }
     }
 
 }
