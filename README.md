@@ -59,3 +59,5 @@ damage-tiers:
     color: YELLOW    # 15 ≤ Damage < 20 → Yellow
   - max: 30
     color: RED       # 20 ≤ Damage < 30 → Red
+
+default-color: DARK_RED # What color to show if the damage is more than 30?
