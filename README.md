@@ -45,7 +45,8 @@ All settings are stored in `plugins/MaceDamageIndicator/config.yml`. Here's what
 | `indicator-message` | The message template shown when damage is dealt. Use `{damage}` as a placeholder for the damage value | `"§b§lᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ §r§7>> §r{damage}"` |
 
 **Color formatting:** Use `§` followed by a color code (`§a` = green, `§c` = red, etc. etc.)
-**[Minecraft Color Codes Table](https://htmlcolorcodes.com/minecraft-color-codes/)**
+
+[Minecraft Color Codes](https://htmlcolorcodes.com/minecraft-color-codes/ "Click to see all color codes!")
 
 ### Damage Color Tiers
 
