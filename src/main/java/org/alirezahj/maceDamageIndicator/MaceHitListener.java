@@ -1,5 +1,7 @@
 package org.alirezahj.maceDamageIndicator;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +21,13 @@ public class MaceHitListener implements Listener {
             return; // This is a mace damage indicator, only for the MACE
 
         double damage = event.getFinalDamage();
-        player.sendMessage("Mace Damage > " + damage);
+        if (damage < 6)
+            return; // Damage is too low (will be configurable in the future)
+
+        Component message = Component.text("Mace Damage > " + damage)
+                .color(NamedTextColor.BLUE);
+
+        player.sendActionBar(message);
 
         // Doesn't really matter if it's a smash attack or not, since
         // breach swapping is a thing
