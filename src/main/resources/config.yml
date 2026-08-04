@@ -16,7 +16,7 @@ indicator-decimals: 2
 
 # The message shown when mace damage is dealt
 # {damage} is what gets replaced with the actual damage
-indicator-message: "ᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ >> {damage}"
+indicator-message: "§b§lᴍᴀᴄᴇ ᴅᴀᴍᴀɢᴇ §r§7>> §r{damage}"
 
 # Damage tiers, checked in order. If damage is under "max", that tier's color is used
 damage-tiers:
